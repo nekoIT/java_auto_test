@@ -1,3 +1,7 @@
+package ru.autoqa.sandbox;
+
+import ru.autoqa.sandbox.Point;
+
 public class MyFirstProgram{
 	public static void main(String[] args){
 

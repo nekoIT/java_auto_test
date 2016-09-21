@@ -1,3 +1,5 @@
+package ru.autoqa.sandbox;
+
 public class Point {
 
     public int x;
