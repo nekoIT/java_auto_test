@@ -31,7 +31,7 @@ public class ContactCreationTest {
     }
 
     @Test
-    public void ContactCreationTest() {
+    public void testContactCreation() {
 
         goToCreateContactPage();
         fillContactForm(new ContactData("testFirstName", "testLastName", "testMiddleName", "testAddressString", "79991001010", "test@test.ru", "1999"));
