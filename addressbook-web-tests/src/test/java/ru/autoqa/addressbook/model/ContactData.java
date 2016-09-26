@@ -1,4 +1,4 @@
-package ru.autoqa.addressbook;
+package ru.autoqa.addressbook.model;
 
 public class ContactData {
     private final String testFirstName;
