@@ -1,6 +1,5 @@
 package ru.autoqa.addressbook.appmanager;
 
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
@@ -12,6 +11,7 @@ public class ApplicationManager {
     private SessionHelper sessionHelper;
     private ContactHelper contactHelper;
     private GroupHelper groupHelper;
+
 
     public void init() {
         wd = new FirefoxDriver();
