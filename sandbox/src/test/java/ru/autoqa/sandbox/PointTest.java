@@ -2,7 +2,6 @@ package ru.autoqa.sandbox;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.autoqa.sandbox.Point;
 
 public class PointTest {
 
@@ -12,6 +11,7 @@ public class PointTest {
         Point p1 = new Point(0, 5);
         Point p2 = new Point(0, 10);
         Assert.assertEquals(p1.distanceTo(p2),5.0);
+
     }
     // Assert testNG
     @Test
