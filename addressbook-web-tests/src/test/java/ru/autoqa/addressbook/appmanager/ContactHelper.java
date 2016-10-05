@@ -1,8 +1,11 @@
 package ru.autoqa.addressbook.appmanager;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 import ru.autoqa.addressbook.model.ContactData;
 
 public class ContactHelper extends HelperBase {
@@ -10,7 +13,7 @@ public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
-    public void fillContactForm(ContactData contactData) {
+    public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getTestFirstName());
         type(By.name("lastname"), contactData.getTestLastName());
         type(By.name("middlename"), contactData.getTestMiddleName());
@@ -24,6 +27,12 @@ public class ContactHelper extends HelperBase {
             click(By.xpath("//div[@id='content']/form/select[2]//option[3]"));
         }
         type(By.name("byear"), contactData.getYear());
+
+        if (creation){
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
 
     }
 
