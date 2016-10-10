@@ -60,8 +60,8 @@ public class ContactHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void createContact(ContactData contactData, boolean b) {
-        fillContactForm(contactData, b);
+    public void createContact(ContactData contactData) {
+        fillContactForm(contactData, true);
         submitContactCreation();
     }
 
