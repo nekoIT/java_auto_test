@@ -2,9 +2,7 @@ package ru.autoqa.addressbook.appmanager;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import ru.autoqa.addressbook.model.ContactData;
 
@@ -40,8 +38,8 @@ public class ContactHelper extends HelperBase {
         click(By.name("submit"));
     }
 
-    public void selectContact() {
-        click(By.name("selected[]"));
+    public void selectContact(int k) {
+        wd.findElements(By.name("selected[]")).get(k).click();
     }
 
     public void deleteSelectedContact() {
@@ -69,4 +67,7 @@ public class ContactHelper extends HelperBase {
        return isElementPresent(By.name("selected[]"));
     }
 
+    public int getContactCount() {
+       return wd.findElements(By.name("selected[]")).size();
+    }
 }

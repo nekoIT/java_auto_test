@@ -1,5 +1,6 @@
 package ru.autoqa.addressbook.tests;
 
+import org.junit.Assert;
 import org.testng.annotations.Test;
 import ru.autoqa.addressbook.model.ContactData;
 import ru.autoqa.addressbook.model.GroupData;
@@ -8,16 +9,19 @@ public class ContractDeletionTest extends TestBase {
 
     @Test
     public void testContractDeletion(){
-
         app.getNavigationHelper().goToContactListPage();
         if (! app.getContactHelper().isExistAContact()){
             app.getNavigationHelper().goToCreateContactPage();
-            app.getContactHelper().createContact(new ContactData("testFirstName", "testLastName", "testMiddleName", "testAddressString", "79991001010", "tests@tests.ru", "1999", "test1"),true);
+            app.getContactHelper().createContact(new ContactData("testFirstName", "testLastName", "testMiddleName", "testAddressString", "79991001010", "tests@tests.ru", "1999", "test1"));
         }
         app.getNavigationHelper().goToContactListPage();
-        app.getContactHelper().selectContact();
+        int before = app.getContactHelper().getContactCount();
+        app.getContactHelper().selectContact(before - 1);
         app.getContactHelper().deleteSelectedContact();
         app.getContactHelper().acceptDeleteContact();
+        app.getNavigationHelper().goToContactListPage();
+        int after = app.getContactHelper().getContactCount();
+        Assert.assertEquals(after, before - 1);
 
     }
 }
