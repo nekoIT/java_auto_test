@@ -3,8 +3,12 @@ package ru.autoqa.addressbook.appmanager;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.autoqa.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -70,4 +74,19 @@ public class ContactHelper extends HelperBase {
     public int getContactCount() {
        return wd.findElements(By.name("selected[]")).size();
     }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<>();
+        WebElement table = wd.findElement(By.id("maintable"));
+        List<WebElement> allRows = table.findElements(By.xpath("//tr[@name = 'entry']"));
+        for (WebElement row : allRows){
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            int id  = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+            ContactData contact = new ContactData(id, cells.get(2).getText(), cells.get(1).getText(), null, null, null, null, null, null );
+            contacts.add(contact);
+        }
+        return contacts;
+    }
 }
+
+

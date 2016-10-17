@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 import ru.autoqa.addressbook.model.ContactData;
 
+import java.util.HashSet;
+import java.util.List;
+
 public class ContactModificationTest extends TestBase{
 
     @Test
@@ -14,14 +17,20 @@ public class ContactModificationTest extends TestBase{
             app.getContactHelper().createContact(new ContactData("testFirstName", "testLastName", "testMiddleName", "testAddressString", "79991001010", "tests@tests.ru", "1999", "test1"));
         }
         app.getNavigationHelper().goToContactListPage();
-        int before = app.getContactHelper().getContactCount();
-        app.getContactHelper().selectContact(before -1);
+        List<ContactData> before = app.getContactHelper().getContactList();
+        int index = before.size() -1;
+        app.getContactHelper().selectContact(index);
         app.getContactHelper().editContact();
-        app.getContactHelper().fillContactForm(new ContactData("testEditFirstName", "testEditLastName", null, null, "79991099999", "Edit@Edit.ru", "1999", null),false);
+        ContactData contact  = new ContactData(before.get(index).getId(),"testEditFirstName", "testEditLastName", null, null, "79991099999", "Edit@Edit.ru", "1999", null);
+        app.getContactHelper().fillContactForm(contact,false);
         app.getContactHelper().submitContactModification();
         app.getNavigationHelper().goToContactListPage();
-        int after = app.getContactHelper().getContactCount();
-        Assert.assertEquals(after, before);
+        List<ContactData> after = app.getContactHelper().getContactList();
+        Assert.assertEquals(after.size(), before.size());
+
+        before.remove(index);
+        before.add(contact);
+        Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after));
 
     }
 }

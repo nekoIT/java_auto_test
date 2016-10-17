@@ -3,19 +3,30 @@ package ru.autoqa.addressbook.tests;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import ru.autoqa.addressbook.model.ContactData;
+import ru.autoqa.addressbook.model.GroupData;
+
+import java.util.List;
 
 public class ContactCreationTest extends TestBase{
 
     @Test
     public void testContactCreation() {
         app.getNavigationHelper().goToContactListPage();
-        int before = app.getContactHelper().getContactCount();
+        List<ContactData> before = app.getContactHelper().getContactList();
         app.getNavigationHelper().goToCreateContactPage();
-        app.getContactHelper().fillContactForm(new ContactData("testFirstName", "testLastName", "testMiddleName", "testAddressString", "79991001010", "tests@tests.ru", "1999", "test1"),true);
+        ContactData contact  = new ContactData("testEditFirstName", "testEditLastName", null, null, "79991099999", "Edit@Edit.ru", "1999", null);
+        app.getContactHelper().fillContactForm(contact,true);
         app.getContactHelper().submitContactCreation();
         app.getNavigationHelper().goToContactListPage();
-        int after = app.getContactHelper().getContactCount();
-        Assert.assertEquals(after, before + 1);
+        List<ContactData> after = app.getContactHelper().getContactList();
+        app.getNavigationHelper().goToContactListPage();
+        Assert.assertEquals(after.size(), before.size() + 1);
+
+        contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
+        before.add(contact);
+
+        after.remove(after.size()-1);
+        Assert.assertEquals(before, after);
     }
 
 
