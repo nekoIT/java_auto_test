@@ -13,7 +13,7 @@ public final class ContactData {
     private  String group;
 
     public ContactData(String testFirstName, String testLastName, String testMiddleName, String testAddressString, String mobilePhone, String email, String year, String group) {
-        this.id = 0;
+        this.id = Integer.MAX_VALUE;
         this.testFirstName = testFirstName;
         this.testLastName = testLastName;
         this.testMiddleName = testMiddleName;
@@ -72,13 +72,12 @@ public final class ContactData {
     @Override
     public String toString() {
         return "ContactData{" +
-                "testFirstName='" + testFirstName + '\'' +
+                "id=" + id +
+                ", testFirstName='" + testFirstName + '\'' +
                 ", testLastName='" + testLastName + '\'' +
-                ", testAddressString='" + testAddressString + '\'' +
-                ", mobilePhone='" + mobilePhone + '\'' +
-                ", email='" + email + '\'' +
                 '}';
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,7 +85,9 @@ public final class ContactData {
 
         ContactData that = (ContactData) o;
 
-        if (id != that.id) return false;
+        if (id != Integer.MAX_VALUE) {
+            if (id != that.id) return false;
+        }
         if (testFirstName != null ? !testFirstName.equals(that.testFirstName) : that.testFirstName != null)
             return false;
         return testLastName != null ? testLastName.equals(that.testLastName) : that.testLastName == null;
