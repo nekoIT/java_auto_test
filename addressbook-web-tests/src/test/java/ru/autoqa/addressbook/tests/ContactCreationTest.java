@@ -14,7 +14,13 @@ public class ContactCreationTest extends TestBase{
         app.goTo().contactListPage();
         List<ContactData> before = app.contact().list();
         app.goTo().createContactPage();
-        ContactData contact  = new ContactData("testEditFirstName", "testEditLastName", null, null, "79991099999", "Edit@Edit.ru", "1999", "test1");
+        ContactData contact  =  new ContactData()
+                .withFirstName("testNewFirstName")
+                .withLastName("testNewLastName")
+                .withMiddleName("79991088888")
+                .withEmail("New@New.ru")
+                .withYear("1888")
+                .withGroup("test1");
         app.contact().create(contact);
         app.goTo().contactListPage();
         List<ContactData> after = app.contact().list();

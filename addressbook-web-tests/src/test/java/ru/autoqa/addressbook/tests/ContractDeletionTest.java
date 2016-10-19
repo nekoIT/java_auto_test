@@ -14,7 +14,14 @@ public class ContractDeletionTest extends TestBase {
         app.goTo().contactListPage();
         if (app.contact().list().size()==0){
             app.goTo().createContactPage();
-            app.contact().create(new ContactData("testFirstName", "testLastName", "testMiddleName", "testAddressString", "79991001010", "tests@tests.ru", "1999", "test1"));
+            app.contact().create(new ContactData().withFirstName("testFirstName")
+                    .withLastName("testLastName")
+                    .withMiddleName("testMiddleName")
+                    .withAddressString("testAddressString")
+                    .withMiddleName("79991001010")
+                    .withEmail("tests@tests.ru")
+                    .withYear("1999")
+                    .withGroup("test1"));
         }
     }
 

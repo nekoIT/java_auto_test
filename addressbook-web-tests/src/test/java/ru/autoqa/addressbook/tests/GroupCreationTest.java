@@ -14,7 +14,10 @@ public class GroupCreationTest extends TestBase {
 
         app.goTo().groupsPage();
         List<GroupData> before = app.group().list();
-        GroupData group = new GroupData("test3", "test2", "test3");
+        GroupData group = new GroupData()
+                .withName("test3")
+                .withHeader("test2")
+                .withFooter("test3");
         app.group().create(group);
         List<GroupData> after = app.group().list();
         Assert.assertEquals(after.size(), before.size() + 1);

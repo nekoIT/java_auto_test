@@ -2,40 +2,60 @@ package ru.autoqa.addressbook.model;
 
 public final class ContactData {
 
-    private int id;
-    private final String testFirstName;
-    private final String testLastName;
-    private final String testMiddleName;
-    private final String testAddressString;
-    private final String mobilePhone;
-    private final String email;
-    private final String year;
-    private  String group;
+    private int id = Integer.MAX_VALUE;;
+    private String testFirstName;
+    private String testLastName;
+    private String testMiddleName;
+    private String testAddressString;
+    private String mobilePhone;
+    private String email;
+    private String year;
+    private String group;
 
-    public ContactData(String testFirstName, String testLastName, String testMiddleName, String testAddressString, String mobilePhone, String email, String year, String group) {
-        this.id = Integer.MAX_VALUE;
-        this.testFirstName = testFirstName;
-        this.testLastName = testLastName;
-        this.testMiddleName = testMiddleName;
-        this.testAddressString = testAddressString;
-        this.mobilePhone = mobilePhone;
-        this.email = email;
-        this.year = year;
-        this.group = group;
-    }
-
-    public ContactData(int id, String testFirstName, String testLastName, String testMiddleName, String testAddressString, String mobilePhone, String email, String year, String group) {
+    public ContactData withId(int id) {
         this.id = id;
-        this.testFirstName = testFirstName;
-        this.testLastName = testLastName;
-        this.testMiddleName = testMiddleName;
-        this.testAddressString = testAddressString;
-        this.mobilePhone = mobilePhone;
-        this.email = email;
-        this.year = year;
-        this.group = group;
+        return this;
     }
-    public void setId(int id) { this.id = id; }
+
+    public ContactData withFirstName(String testFirstName) {
+        this.testFirstName = testFirstName;
+        return this;
+    }
+
+    public ContactData withLastName(String testLastName) {
+        this.testLastName = testLastName;
+        return this;
+    }
+
+    public ContactData withMiddleName(String testMiddleName) {
+        this.testMiddleName = testMiddleName;
+        return this;
+    }
+
+    public ContactData withAddressString(String testAddressString) {
+        this.testAddressString = testAddressString;
+        return this;
+    }
+
+    public ContactData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public ContactData withYear(String year) {
+        this.year = year;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
+    }
 
     public int getId() { return id; }
 
