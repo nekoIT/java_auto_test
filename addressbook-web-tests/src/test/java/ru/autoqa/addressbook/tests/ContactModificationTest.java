@@ -7,6 +7,7 @@ import ru.autoqa.addressbook.model.ContactData;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class ContactModificationTest extends TestBase{
     @BeforeMethod
@@ -27,25 +28,23 @@ public class ContactModificationTest extends TestBase{
     @Test
     public void testContactModification() {
         app.goTo().contactListPage();
-        List<ContactData> before = app.contact().list();
-        int index = before.size() -2;
+        Set<ContactData> before = app.contact().all();
+        ContactData modifiedcontact = before.iterator().next();
+
         ContactData contact =
         new ContactData()
-                .withId(before.get(index).getId())
+                .withId(modifiedcontact.getId())
                 .withFirstName("testEditFirstName1")
                 .withLastName("testEditLastName11")
                 .withMiddleName("79991099999")
                 .withEmail("Edit@Edit.ru")
                 .withYear("1999");
-        app.contact().modify(index, contact);
+        app.contact().modify(modifiedcontact.getId(), contact);
         app.goTo().contactListPage();
-        List<ContactData> after = app.contact().list();
+        Set<ContactData> after = app.contact().all();
         Assert.assertEquals(after.size(), before.size());
-        before.remove(index);
+        before.remove(modifiedcontact);
         before.add(contact);
-        Comparator<? super ContactData> byId = (g1, g2) ->Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
         Assert.assertEquals( before, after);
 
     }

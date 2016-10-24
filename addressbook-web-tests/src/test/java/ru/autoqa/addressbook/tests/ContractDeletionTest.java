@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.autoqa.addressbook.model.ContactData;
 
 import java.util.List;
+import java.util.Set;
 
 public class ContractDeletionTest extends TestBase {
 
@@ -28,13 +29,13 @@ public class ContractDeletionTest extends TestBase {
     @Test
     public void testContractDeletion(){
         app.goTo().contactListPage();
-        List<ContactData> before = app.contact().list();
-        int index = before.size() - 1;
-        app.contact().delete(index);
+        Set<ContactData> before = app.contact().all();
+        ContactData deletedGroup = before.iterator().next();
+        app.contact().delete(deletedGroup);
         app.goTo().contactListPage();
-        List<ContactData> after = app.contact().list();
+        Set<ContactData> after = app.contact().all();
         Assert.assertEquals(after.size(), before.size() - 1);
-        before.remove(index);
+        before.remove(deletedGroup);
         Assert.assertEquals(before, after);
     }
 }
