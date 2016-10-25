@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.autoqa.addressbook.model.ContactData;
+import ru.autoqa.addressbook.model.Contacts;
 import ru.autoqa.addressbook.model.GroupData;
 
 import java.util.ArrayList;
@@ -83,8 +84,8 @@ public class ContactHelper extends HelperBase {
         deleteSelectedContact();
         acceptDeleteContact();
     }
-    public Set<ContactData> all() {
-        Set<ContactData> contacts = new HashSet<ContactData>();
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         WebElement table = wd.findElement(By.id("maintable"));
         List<WebElement> allRows = table.findElements(By.xpath("//tr[@name = 'entry']"));
         for (WebElement row : allRows){
