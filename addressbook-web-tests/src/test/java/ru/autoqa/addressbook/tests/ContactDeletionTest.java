@@ -6,25 +6,22 @@ import org.testng.annotations.Test;
 import ru.autoqa.addressbook.model.ContactData;
 import ru.autoqa.addressbook.model.Contacts;
 
-import java.util.List;
-import java.util.Set;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContractDeletionTest extends TestBase {
+public class ContactDeletionTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().contactListPage();
-        if (app.contact().list().size()==0){
+        if (app.contact().all().size()==0){
             app.goTo().createContactPage();
             app.contact().create(new ContactData().withFirstName("testFirstName")
                     .withLastName("testLastName")
                     .withMiddleName("testMiddleName")
-                    .withAddressString("testAddressString")
+                    .withAddress("testAddressString")
                     .withMiddleName("79991001010")
-                    .withEmail("tests@tests.ru")
+                    .withEmail1("tests@tests.ru")
                     .withYear("1999")
                     .withGroup("test1"));
         }
@@ -37,8 +34,8 @@ public class ContractDeletionTest extends TestBase {
         ContactData deletedContact = before.iterator().next();
         app.contact().delete(deletedContact);
         app.goTo().contactListPage();
+        Assert.assertEquals(app.contact().count(), before.size() - 1);
         Contacts after = app.contact().all();
-        Assert.assertEquals(after.size(), before.size() - 1);
         assertThat(after, equalTo(before.withOut(deletedContact)));
     }
 }
