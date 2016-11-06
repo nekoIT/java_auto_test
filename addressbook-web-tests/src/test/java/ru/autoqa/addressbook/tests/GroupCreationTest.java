@@ -10,7 +10,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -45,15 +44,11 @@ public class GroupCreationTest extends TestBase {
         assertThat(after, equalTo(
                 before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
-    @Test
-    public void testBadGroupCreation() {
+    @Test(dataProvider = "validGroups")
+    public void testBadGroupCreation(GroupData group) {
 
         app.goTo().groupsPage();
         Groups before = app.group().all();
-        GroupData group = new GroupData()
-                .withName("test3'")
-                .withHeader("test2")
-                .withFooter("test3");
         app.group().create(group);
 
         assertThat(app.group().count(), equalTo(before.size()));

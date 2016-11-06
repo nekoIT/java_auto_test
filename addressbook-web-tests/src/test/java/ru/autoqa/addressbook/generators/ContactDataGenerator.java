@@ -86,7 +86,8 @@ public class ContactDataGenerator {
                     contact.getWorkPhone(),
                     contact.getEmail(),
                     contact.getEmail2(),
-                    contact.getEmail3()));
+                    contact.getEmail3(),
+                    contact.getGroup()));
         }
         writer.close();
     }
@@ -104,7 +105,8 @@ public class ContactDataGenerator {
                     .withWorkPhone(String.format("8000000000%s", i))
                     .withEmail1(String.format("Email1@test.ru%s", i))
                     .withEmail2(String.format("Email2@test.ru%s", i))
-                    .withEmail3(String.format("Email3@test.ru%s", i))));
+                    .withEmail3(String.format("Email3@test.ru%s", i))
+                    .withGroup(String.format("test 0"))));
 
         }
         return contacts;
