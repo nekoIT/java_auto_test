@@ -62,6 +62,10 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.xpath("//a[@href ='edit.php?id="+id+"'] ")).click();
     }
 
+    public void detailsContact(int id) {
+        wd.findElement(By.xpath("//a[@href ='view.php?id="+id+"'] ")).click();
+    }
+
     public void submitContactModification() {
         click(By.name("update"));
     }
@@ -97,6 +101,8 @@ public class ContactHelper extends HelperBase {
         for (WebElement row : allRows){
             List<WebElement> cells = row.findElements(By.tagName("td"));
             int id  = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+            String[] allPhones = cells.get(5).getText().split("\n");
+            String[] allEmails = cells.get(4).getText().split("\n");
 
             ContactData contact = new ContactData()
                     .withId(id)
@@ -105,7 +111,24 @@ public class ContactHelper extends HelperBase {
                     .withAddress(cells.get(3).getText())
                     .withAllEmails(cells.get(4).getText())
                     .withAllPhone(cells.get(5).getText());
-
+            if (allPhones.length > 0) {
+                contact.withHomePhone(allPhones[0]);
+            }
+            if (allPhones.length > 1) {
+                contact.withMobilePhone(allPhones[1]);
+            }
+            if (allPhones.length > 2) {
+                contact.withWorkPhone(allPhones[2]);
+            }
+            if (allEmails.length > 0) {
+                contact.withEmail1(allEmails[0]);
+            }
+            if (allEmails.length > 1) {
+                contact.withEmail2(allEmails[1]);
+            }
+            if (allEmails.length > 2) {
+                contact.withEmail3(allEmails[2]);
+            }
             contactCache.add(contact);
         }
         return new Contacts(contactCache);
@@ -144,6 +167,12 @@ public class ContactHelper extends HelperBase {
     }
     public static String cleaned(String phone){
         return phone.replaceAll("\\s", "").replaceAll("[-()]","");
+    }
+    public String infoFromDetailsForm(ContactData contact) {
+        detailsContact(contact.getId());
+        String fullInfo = wd.findElement(By.xpath("//div[@id = 'content']")).getText();
+        wd.navigate().back();
+        return  fullInfo;
     }
 }
 
