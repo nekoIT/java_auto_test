@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Contacts extends ForwardingSet<ContactData> {
+
     private Set<ContactData> delegate;
 
     public Contacts(Contacts contacts) {

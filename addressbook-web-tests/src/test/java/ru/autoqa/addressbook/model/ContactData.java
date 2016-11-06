@@ -1,22 +1,49 @@
 package ru.autoqa.addressbook.model;
 
-public final class ContactData {
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-    private int id = Integer.MAX_VALUE;;
+import java.io.File;
+@XStreamAlias("group")
+public final class ContactData {
+    @XStreamOmitField
+    private int id = Integer.MAX_VALUE;
+    @Expose
     private String firstName;
+    @Expose
     private String lastName;
+    @Expose
     private String middleName;
+    @Expose
     private String address;
+    @Expose
     private String homePhone;
     private String allPhones;
+    @Expose
     private String mobilePhone;
+    @Expose
     private String workPhone;
     private String allEmails;
+    @Expose
     private String email;
+    @Expose
     private String email2;
+    @Expose
     private String email3;
     private String year;
     private String group;
+
+    public File getPhoto() {
+        return photo;
+    }
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+    }
+
+    private File photo;
 
     public ContactData() {
     }
