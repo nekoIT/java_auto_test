@@ -53,10 +53,10 @@ public class GroupCreationTest extends TestBase {
 
     @Test(dataProvider = "validGroupsFromXML")
     public void testGroupCreation(GroupData group) {
+        Groups before = app.db().groups();
         app.goTo().groupsPage();
-        Groups before = app.group().all();
         app.group().create(group);
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(app.group().count(), equalTo(before.size()+1));
         assertThat(after, equalTo(
                 before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
@@ -64,12 +64,13 @@ public class GroupCreationTest extends TestBase {
     @Test(dataProvider = "validGroups")
     public void testBadGroupCreation(GroupData group) {
 
+
+        Groups before = app.db().groups();
         app.goTo().groupsPage();
-        Groups before = app.group().all();
         app.group().create(group);
 
         assertThat(app.group().count(), equalTo(before.size()));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(before));
     }
 }

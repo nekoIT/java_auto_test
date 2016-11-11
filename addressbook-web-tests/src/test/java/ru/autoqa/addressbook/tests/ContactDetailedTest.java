@@ -15,8 +15,8 @@ public class ContactDetailedTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().contactListPage();
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
+            app.goTo().contactListPage();
             app.goTo().createContactPage();
             app.contact().create(new ContactData().withFirstName("testFirstName")
                     .withLastName("testLastName")
@@ -27,7 +27,9 @@ public class ContactDetailedTest extends TestBase {
                     .withYear("1999")
                     .withGroup("test1"));
         }
-    }
+        }
+
+
 
     @Test
     public void testContactDetailed() {
