@@ -42,7 +42,7 @@ public class ContactCreationTest extends TestBase {
         app.goTo().contactListPage();
         Contacts before = app.db().contacts();
         app.goTo().createContactPage();
-        app.contact().create(contact);
+        app.contact().createWithGroup(contact);
         app.goTo().contactListPage();
         Contacts after = app.db().contacts();
         Assert.assertEquals(app.group().count(), before.size() + 1);

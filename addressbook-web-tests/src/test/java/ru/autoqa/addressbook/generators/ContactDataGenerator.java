@@ -6,8 +6,11 @@ import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
+import org.openqa.selenium.remote.BrowserType;
+import ru.autoqa.addressbook.appmanager.ApplicationManager;
 import ru.autoqa.addressbook.model.ContactData;
 import ru.autoqa.addressbook.model.GroupData;
+import ru.autoqa.addressbook.model.Groups;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactDataGenerator {
+    protected static final ApplicationManager app
+            = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
     @Parameter(names = "-c", description = "Contact count")
     public int count;
 
@@ -86,13 +91,13 @@ public class ContactDataGenerator {
                         contact.getWorkPhone(),
                         contact.getEmail(),
                         contact.getEmail2(),
-                        contact.getEmail3(),
-                        contact.getGroup()));
+                        contact.getEmail3()));
             }
         }
     }
 
     private List<ContactData> generateContacts(int count) {
+        Groups groups = app.db().groups();
         List<ContactData> contacts = new ArrayList<ContactData>();
         for (int i = 0; i < count; i++) {
             contacts.add((new ContactData()
@@ -106,7 +111,8 @@ public class ContactDataGenerator {
                     .withEmail1(String.format("Email1@test.ru%s", i))
                     .withEmail2(String.format("Email2@test.ru%s", i))
                     .withEmail3(String.format("Email3@test.ru%s", i))
-                    .withGroup(String.format("test 0"))));
+                    .inGroups(groups.iterator().next())));
+
 
         }
         return contacts;
