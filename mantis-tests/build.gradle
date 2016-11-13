@@ -1,0 +1,28 @@
+
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = "MyFirstProgram"
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.testng:testng:6.9.10'
+    compile 'org.seleniumhq.selenium:selenium-java:2.53.1'
+    compile 'org.hamcrest:java-hamcrest:2.0.0.0'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
+
+}
+test {
+    useTestNG(){
+        'rc/test/resources/testng-groups.xml'
+    }
+    if  (project.hasProperty("browser")){
+        systemProperty 'browser', "${browser}"
+    }
+    if  (project.hasProperty("target")){
+        systemProperty 'target', "${target}"
+    }
+}
