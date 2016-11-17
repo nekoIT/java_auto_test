@@ -1,10 +1,10 @@
 package ru.autoqa.addressbook.appmanager;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.autoqa.addressbook.model.ContactData;
 import ru.autoqa.addressbook.model.Contacts;
 

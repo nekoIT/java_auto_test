@@ -1,16 +1,13 @@
 package ru.autoqa.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.junit.Assert;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.autoqa.addressbook.model.GroupData;
 import ru.autoqa.addressbook.model.Groups;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupDeletionTest extends TestBase {
     @BeforeMethod
@@ -27,7 +24,7 @@ public class GroupDeletionTest extends TestBase {
         app.goTo().groupsPage();
         GroupData deletedGroup = before.iterator().next();
         app.group().delete(deletedGroup);
-        assertEquals(app.group().count(), before.size() - 1);
+        Assert.assertEquals(app.group().count(), before.size() - 1);
         Groups after = app.db().groups();
         assertThat(after, equalTo(before.withOut(deletedGroup)));
     }

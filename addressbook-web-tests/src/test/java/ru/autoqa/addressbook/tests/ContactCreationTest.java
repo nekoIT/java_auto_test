@@ -1,7 +1,7 @@
 package ru.autoqa.addressbook.tests;
 
 import com.thoughtworks.xstream.XStream;
-import org.junit.Assert;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.autoqa.addressbook.model.ContactData;

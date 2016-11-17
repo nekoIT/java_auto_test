@@ -10,7 +10,6 @@ repositories {
 
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.21'
-    testCompile 'junit:junit:4.12'
     compile 'org.testng:testng:6.9.10'
     compile 'org.seleniumhq.selenium:selenium-java:2.53.1'
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
@@ -22,6 +21,7 @@ dependencies {
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
 
 }
+
 task testGroups(type: Test) {
     useTestNG(){
         'rc/test/resources/testng-groups.xml'
@@ -33,6 +33,7 @@ task testGroups(type: Test) {
         systemProperty 'target', "${target}"
     }
 }
+
 task testContacts(type: Test) {
     useTestNG(){
         'rc/test/resources/testng-contacts.xml'

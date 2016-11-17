@@ -17,23 +17,23 @@ public class AddContactToGroupTest extends TestBase {
 
     // создаем контакт без группы
     public void ensurePreconditions() {
-        if (app.db().groups().size() == 0){
+        if (app.db().groups().size() == 0) {
             app.goTo().groupsPage();
             app.group().create(new GroupData().withName("test3"));
         }
 
-            app.goTo().createContactPage();
-            app.contact().createWithoutGroup(new ContactData().withFirstName("testFirstName")
-                    .withLastName("testLastName")
-                    .withMiddleName("testMiddleName")
-                    .withAddress("testAddressString")
-                    .withMiddleName("79991001010")
-                    .withEmail1("tests@tests.ru")
-                    .withYear("1999"));
+        app.goTo().createContactPage();
+        app.contact().createWithoutGroup(new ContactData().withFirstName("testFirstName")
+                .withLastName("testLastName")
+                .withMiddleName("testMiddleName")
+                .withAddress("testAddressString")
+                .withMiddleName("79991001010")
+                .withEmail1("tests@tests.ru")
+                .withYear("1999"));
     }
 
     @Test
-    public void testGroupsAdd(){
+    public void testGroupsAdd() {
         app.goTo().contactListPage();
         Contacts contacts = app.contact().all();
         int id = contacts.stream().mapToInt(ContactData::getId).max().getAsInt();

@@ -2,7 +2,7 @@ package ru.autoqa.addressbook.tests;
 
 import java.util.regex.Pattern;
 
-import org.junit.Assert;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.autoqa.addressbook.model.ContactData;
